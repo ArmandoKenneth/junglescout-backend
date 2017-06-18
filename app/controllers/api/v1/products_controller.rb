@@ -20,11 +20,11 @@ class Api::V1::ProductsController < Api::V1::BaseController
     @product.save!
     render status: :ok, json: @product, include: :reviews
   rescue StandardError => e
-     render status: 404, json: {erro: e.message}
+     render status: :bad_request, json: {erro: e.message}
   end
 
   def show
-    render status: :bad_request, json: {error: "ASIN is required"} and return if params[:asin].nil?
+    render status: :bad_request, json: {error: "No product with the given ASIN was found"} and return if @product.nil?
     render status: :ok, json: @product, include: :reviews
   end
 
@@ -34,6 +34,6 @@ class Api::V1::ProductsController < Api::V1::BaseController
   end
 
   def product_params
-    params.require(:product).permit(:asin)
+    params.permit(:asin)
   end
 end
