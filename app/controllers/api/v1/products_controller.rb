@@ -1,34 +1,32 @@
 
 class Api::V1::ProductsController < Api::V1::BaseController
 
-  before_action :set_tag, only: [:load_product]
+  before_action :set_product, only: [:show, :update]
 
   # Loads all products from the database
-  # TODO:d pagination
+  # TODO: add pagination
   def index
     render status: :ok, json: Product.all
   end
 
-  # Updates the product based on the asin received
   def update
-    amazon = AmazonApi.new
-    url = amazon.fetch_product(params[:asin])
+    if @product.nil?
+      @product = Product.new
+    end
+    url = AmazonApi.build_fetch_product_url(params[:asin])
     dom = AmazonApi.load_from_url(url)
-    product = Product.build_from_xml(dom.to_xml)
-    # byebug
-    # product.save!
-    product.load_reviews_and_rating
-    # render :json => product, :include => {:reviews => {}}
-    # render status: :ok, json: product.to_json
-    render status: :ok, json: product, include: :reviews
+    @product.build_from_xml(dom.to_xml)
+    @product.load_reviews_and_rating
+    @product.save!
+    render status: :ok, json: @product, include: :reviews
   rescue StandardError => e
      render status: 404, json: {erro: e.message}
   end
 
   def show
-
+    render status: :bad_request, json: {error: "ASIN is required"} and return if params[:asin].nil?
+    render status: :ok, json: @product, include: :reviews
   end
-
 
   private
   def set_product
