@@ -80,6 +80,6 @@ test:
 #
 production:
   <<: *default
-  database: junglescout-backend_development
+  database: junglescout-backend_production
   # username: junglescout-backend
   # password: <%= ENV['JUNGLESCOUT-BACKEND_DATABASE_PASSWORD'] %>

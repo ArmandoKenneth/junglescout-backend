@@ -39,7 +39,6 @@ class AmazonApi
   def self.load_from_url(url)
     user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.854.0 Safari/535.2"
     Nokogiri::HTML(open(url, 'User-Agent' => user_agent, 'read_timeout' => '10' ), nil, "UTF-8")
-    # Nokogiri::HTML(open(url))
   end
 
 
