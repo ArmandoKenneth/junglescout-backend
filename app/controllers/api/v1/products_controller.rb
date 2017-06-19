@@ -19,6 +19,7 @@ class Api::V1::ProductsController < Api::V1::BaseController
     @product.save!
     render status: :ok, json: @product, include: :reviews
   rescue StandardError => e
+    puts e
      render status: :bad_request, json: {erro: e.message}
   end
 
