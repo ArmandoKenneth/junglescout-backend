@@ -4,7 +4,6 @@ class Api::V1::ProductsController < Api::V1::BaseController
   before_action :set_product, only: [:show, :update]
 
   # Loads all products from the database
-  # TODO: add pagination
   def index
     render status: :ok, json: Product.all.order(created_at: :desc), include: :reviews
   end
