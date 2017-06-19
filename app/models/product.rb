@@ -6,9 +6,11 @@ class Product < ApplicationRecord
   def build_from_xml(xml)
     hash = Hash.from_xml(xml)
     item_data = hash['html']['body']['itemlookupresponse']['items']['item']
+    # byebug
     self.asin = item_data['asin']
     self.title = item_data['itemattributes']['title']
     self.review_url = item_data['customerreviews']['iframeurl']
+    self.image_url = item_data['mediumimage']['url']
   end
 
   def load_reviews_and_rating
@@ -75,6 +77,6 @@ class Product < ApplicationRecord
 
   private
   def clean_text(text)
-    text.gsub!("\n", "").strip
+    text.gsub!("\n", "").gsub!("...Read more", "").strip
   end
 end
