@@ -1,25 +1,17 @@
-# README
+# Running this project
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+1. Need to set these 3 environment variables
 
-Things you may want to cover:
+      AMAZON_ACCESS_KEY
+      
+      AMAZON_ASSOCIATE_ID
+      
+      AMAZON_SECRET_KEY
 
-* Ruby version
+2. Run
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# junglescout-backend
+      bundle install
+      
+      rake db:migrate
+      
+      rails s
